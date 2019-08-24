@@ -15,50 +15,28 @@ function init(coords) {
     $("imagesinuse").innerHTML = '';
     $("imagesavalible").innerHTML = '';
     if ('bg' in coords)
-        insertimg({
-            label: "Background"
-        }, coords.bg.Image.ImageIndex);
+        insertimg({label: "Background"}, coords.bg.Image.ImageIndex);
     if ('time' in coords) {
-        insertimg({
-            label: "Time hours tens"
-        }, coords.time.Hours.Tens.ImageIndex, coords.time.Hours.Tens.ImagesCount);
-        insertimg({
-            label: "Time hours ones"
-        }, coords.time.Hours.Ones.ImageIndex, coords.time.Hours.Ones.ImagesCount);
-        insertimg({
-            label: "Time minutes tens"
-        }, coords.time.Minutes.Tens.ImageIndex, coords.time.Minutes.Tens.ImagesCount);
-        insertimg({
-            label: "Time minutes ones"
-        }, coords.time.Minutes.Ones.ImageIndex, coords.time.Minutes.Ones.ImagesCount);
+        insertimg({label: "Time hours tens"}, coords.time.Hours.Tens.ImageIndex, coords.time.Hours.Tens.ImagesCount);
+        insertimg({label: "Time hours ones"}, coords.time.Hours.Ones.ImageIndex, coords.time.Hours.Ones.ImagesCount);
+        insertimg({label: "Time minutes tens"}, coords.time.Minutes.Tens.ImageIndex, coords.time.Minutes.Tens.ImagesCount);
+        insertimg({label: "Time minutes ones"}, coords.time.Minutes.Ones.ImageIndex, coords.time.Minutes.Ones.ImagesCount);
         if ('seconds' in coords) {
-            insertimg({
-                label: "Time seconds tens"
-            }, coords.seconds.Tens.ImageIndex, coords.seconds.Tens.ImagesCount);
-            insertimg({
-                label: "Time seconds ones"
-            }, coords.seconds.Ones.ImageIndex, coords.seconds.Ones.ImagesCount);
+            insertimg({label: "Time seconds tens"}, coords.seconds.Tens.ImageIndex, coords.seconds.Tens.ImagesCount);
+            insertimg({label: "Time seconds ones"}, coords.seconds.Ones.ImageIndex, coords.seconds.Ones.ImagesCount);
         }
         if ('amPm' in coords)
-            insertimg({
-                label: "Time am/pm"
-            }, coords.amPm.ImageIndexAm, 1, coords.amPm.ImageIndexPm);
+            insertimg({label: "Time am/pm"}, coords.amPm.ImageIndexAm, 1, coords.amPm.ImageIndexPm);
     }
     if (coords.date) {
         if ('weekDay' in coords) {
-            insertimg({
-                label: "Week day"
-            }, coords.weekDay.ImageIndex, coords.weekDay.ImagesCount);
+            insertimg({label: "Week day"}, coords.weekDay.ImageIndex, coords.weekDay.ImagesCount);
         }
         if ('dateDay' in coords) {
-            insertimg({
-                label: "Date day"
-            }, coords.dateDay.ImageIndex, coords.dateDay.ImagesCount);
+            insertimg({label: "Date day"}, coords.dateDay.ImageIndex, coords.dateDay.ImagesCount);
         }
         if ('dateMonth' in coords) {
-            insertimg({
-                label: "Date month"
-            }, coords.dateMonth.ImageIndex, coords.dateMonth.ImagesCount);
+            insertimg({label: "Date month"}, coords.dateMonth.ImageIndex, coords.dateMonth.ImagesCount);
         }
         if ('dateOneLine' in coords) {
             insertimg({
@@ -69,17 +47,11 @@ function init(coords) {
     }
     if (coords.battery) {
         if ('batteryIcon' in coords)
-            insertimg({
-                label: "Battery icon"
-            }, coords.batteryIcon.ImageIndex, coords.batteryIcon.ImagesCount);
+            insertimg({label: "Battery icon"}, coords.batteryIcon.ImageIndex, coords.batteryIcon.ImagesCount);
         if ('batteryText' in coords)
-            insertimg({
-                label: "Battery text"
-            }, coords.batteryText.ImageIndex, coords.batteryText.ImagesCount);
+            insertimg({label: "Battery text"}, coords.batteryText.ImageIndex, coords.batteryText.ImagesCount);
         if ('batteryScale' in coords)
-            insertimg({
-                label: "Battery scale"
-            }, coords.batteryScale.StartImageIndex, coords.batteryScale.Segments.length);
+            insertimg({label: "Battery scale"}, coords.batteryScale.StartImageIndex, coords.batteryScale.Segments.length);
     }
     if (coords.status) {
         if ('statAlarm' in coords)
@@ -105,21 +77,13 @@ function init(coords) {
     }
     if (coords.activity) {
         if ('actCal' in coords)
-            insertimg({
-                label: "Activity calories"
-            }, coords.actCal.ImageIndex, coords.actCal.ImagesCount);
+            insertimg({label: "Activity calories"}, coords.actCal.ImageIndex, coords.actCal.ImagesCount);
         if ('actSteps' in coords)
-            insertimg({
-                label: "Activity steps"
-            }, coords.actSteps.ImageIndex, coords.actSteps.ImagesCount);
+            insertimg({label: "Activity steps"}, coords.actSteps.ImageIndex, coords.actSteps.ImagesCount);
         if ('statstepsGoal' in coords)
-            insertimg({
-                label: "Activity steps goal"
-            }, coords.actStepsGoal.ImageIndex, coords.actStepsGoal.ImagesCount);
+            insertimg({label: "Activity steps goal"}, coords.actStepsGoal.ImageIndex, coords.actStepsGoal.ImagesCount);
         if ('actPulse' in coords)
-            insertimg({
-                label: "Activity pulse"
-            }, coords.actPulse.ImageIndex, coords.actPulse.ImagesCount);
+            insertimg({label: "Activity pulse"}, coords.actPulse.ImageIndex, coords.actPulse.ImagesCount);
         if ('actDistance' in coords)
             insertimg({
                 label: "Activity distance",
@@ -129,9 +93,7 @@ function init(coords) {
     if (coords.weather) {
         if (coords.weathericon)
             if ('CustomIcon' in coords.weathericon) {
-                insertimg({
-                    label: "Weather icons"
-                }, coords.weathericon.CustomIcon.ImageIndex, coords.weathericon.CustomIcon.ImagesCount);
+                insertimg({label: "Weather icons"}, coords.weathericon.CustomIcon.ImageIndex, coords.weathericon.CustomIcon.ImagesCount);
             }
         if ('weatherOneLine' in coords)
             insertimg({
@@ -155,19 +117,13 @@ function init(coords) {
                 addition: (", " + coords.weatherCurrent.MinusImageIndex + ", " + coords.weatherCurrent.DegreesImageIndex)
             }, coords.weatherCurrent.Number.ImageIndex, coords.weatherCurrent.Number.ImagesCount, coords.weatherCurrent.MinusImageIndex, coords.weatherCurrent.DegreesImageIndex);
         if ('weatherAirIcon' in coords)
-            insertimg({
-                label: "Weather air pollution"
-            }, coords.weatherAirIcon.ImageIndex, coords.weatherAirIcon.ImagesCount);
+            insertimg({label: "Weather air pollution"}, coords.weatherAirIcon.ImageIndex, coords.weatherAirIcon.ImagesCount);
     }
     if (coords.stepsprogress) {
         if ('stepsLinear' in coords)
-            insertimg({
-                label: "Steps progress"
-            }, coords.stepsLinear.StartImageIndex, coords.stepsLinear.Segments.length);
+            insertimg({label: "Steps progress"}, coords.stepsLinear.StartImageIndex, coords.stepsLinear.Segments.length);
         if ('stepsGoal' in coords)
-            insertimg({
-                label: "Goal image"
-            }, coords.stepsGoal.ImageIndex, 1);
+            insertimg({label: "Goal image"}, coords.stepsGoal.ImageIndex, 1);
     }
     insertimg({
         label: "Big digits",

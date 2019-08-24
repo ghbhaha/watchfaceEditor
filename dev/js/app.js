@@ -14,14 +14,19 @@ function change_device(name, wfe_obj) {
 
     localStorage.device = name;
     let device = devices[name];
+
+    $('watchfaceimage').style.zoom = '0.5';
+    // $('editor').style.zoom = '0.5'
+    // $('editor').style.zoom = '0.5'
+
     $('watchface').style.height = device.height + 'px';
     $('watchface').style.width = device.width + 'px';
-    $('editor').style.height = device.height * 3 + 'px';
-    $('editor').style.width = device.width * 3 + 'px';
-    $('analog').style.height = device.height * 3 + 'px';
-    $('analog').style.width = device.width * 3 + 'px';
-    $('.analog-block')[0].style.height = device.height * 3 + 'px';
-    $('.analog-block')[0].style.width = device.width * 3 + 'px';
+    $('editor').style.height = device.height + 'px';
+    $('editor').style.width = device.width + 'px';
+    $('analog').style.height = device.height + 'px';
+    $('analog').style.width = device.width + 'px';
+    $('.analog-block')[0].style.height = device.height + 'px';
+    $('.analog-block')[0].style.width = device.width + 'px';
     $('watchfaceimage').style.background = 'url(assets/' + device.images.watchface_block.image + ')';
     $('watchfaceimage').style.paddingLeft = device.images.watchface_block.left + 'px';
     $('watchfaceimage').style.paddingTop = device.images.watchface_block.top + 'px';

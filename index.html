@@ -180,7 +180,7 @@
                                         <input class="uk-input" id="in-sec" type="number" placeholder="Seconds" min="0" max="59" value="43">
                                     </div>
                                 </div>
-                                <div class="uk-width-1-4@s">
+                                <div class="uk-width-1-4@s" style="display: none">
                                     <label class="uk-form-label">Animation image</label>
                                     <div class="uk-form-controls">
                                         <input class="uk-input" id="in-animation" type="number" placeholder="Only Band 4" min="0" max="10">
@@ -195,14 +195,14 @@
                                         <label><input class="uk-checkbox" type="checkbox" checked id="in-lock"> <span data-translate-id="lock">Lock</span></label>
                                     </div>
                                 </div>
-                                <div class="uk-width-1-4@s">
+                                <div class="uk-width-1-4@s" style="display: none">
                                     <label class="uk-form-label" data-translate-id="weatherAlt-label">Alt weather</label>
                                     <div class="uk-form-controls uk-child-width-auto uk-grid">
                                         <label><input class="uk-checkbox" type="checkbox" id="in-weatherAlt"> <span data-translate-id="weatherAlt">Show alt weather</span></label>
                                         <small data-translate-id="weatherAltDescription">Appears when current weather is unavailable</small>
                                     </div>
                                 </div>
-                                <div class="uk-width-1-4@s">
+                                <div class="uk-width-1-4@s" style="display: none">
                                     <label class="uk-form-label" data-translate-id="airQualityLabel">Air</label>
                                     <div class="uk-form-controls">
                                         <input class="uk-input" id="in-air" type="number" placeholder="Air" min="0" max="999" value="300">
@@ -252,7 +252,7 @@
                                     <div class="uk-accordion-content">
                                         <button class="uk-button uk-button-primary uk-button-small editor-button" data-translate-id="tgactsteps" id="tg-actSteps">Toggle steps</button>
                                         <button class="uk-button uk-button-primary uk-button-small editor-button" data-translate-id="tgactstepsgoal" id="tg-actStepsGoal">Toggle steps goal</button>
-                                        <button class="uk-button uk-button-primary uk-button-small editor-button" data-translate-id="tgstepslinear" id="tg-stepsLinear">Toggle steps progress</button>
+                                        <button class="uk-button uk-button-primary uk-button-small editor-button" data-translate-id="tgstepslinear" id="tg-stepscircle">Toggle steps progress</button>
                                         <button class="uk-button uk-button-primary uk-button-small editor-button" data-translate-id="tgactgoalicon" id="tg-stepsGoal">Toggle steps goal icon</button>
                                         <button class="uk-button uk-button-primary uk-button-small editor-button" data-translate-id="tgactpulse" id="tg-actPulse">Toggle pulse</button>
                                         <button class="uk-button uk-button-primary uk-button-small editor-button" data-translate-id="tgactcalories" id="tg-actCal">Toggle calories</button>
@@ -276,7 +276,7 @@
                                         <button class="uk-button uk-button-primary uk-button-small editor-button" data-translate-id="tgbatscale" id="tg-batteryScale">Toggle battery bar</button>
                                     </div>
                                 </li>
-                                <li>
+                                <li style="display: none">
                                     <a href="#" class="uk-accordion-title" data-translate-id="weather">Weather</a>
                                     <div class="uk-accordion-content">
                                         <button class="uk-button uk-button-primary uk-button-small editor-button" data-translate-id="tgweathericon" id="tg-weatherIcon">Toggle icon</button>
@@ -551,7 +551,7 @@
                     </div>
                 </div>
                 <div class="uk-margin-top"><input id="showdemocheck" class="uk-checkbox" type="checkbox" checked> <span data-translate-id="showdemo">Show demo</span></div>
-                <div class="uk-margin-top">
+                <div class="uk-margin-top" style="display: none">
                     <span data-translate-id="device">Device</span>
                     <div class="uk-grid-small uk-child-width-auto uk-grid">
                         <label><input class="uk-radio" type="radio" name="device" value="bip"> Bip</label>

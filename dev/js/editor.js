@@ -5,6 +5,7 @@ import {
     $c as $c
 } from './utils.js';
 import updateWatchface from "./watchface_react";
+
 /**
  * Makes block and inserts it (TopLeft and BottomRight) for visual editor
  *
@@ -13,7 +14,7 @@ import updateWatchface from "./watchface_react";
  */
 function makeBlock(el) {
     $("editor").innerHTML +=
-        '<div id="' + wfe.elements[el].editorId + '" style="height:' + ((wfe.elements[el].coords().BottomRightY - wfe.elements[el].coords().TopLeftY + 1) * 3) + 'px; width:' + ((wfe.elements[el].coords().BottomRightX - wfe.elements[el].coords().TopLeftX + 1) * 3) + 'px; top:' + (wfe.elements[el].coords().TopLeftY * 3) + 'px; left:' + (wfe.elements[el].coords().TopLeftX * 3) + 'px;" class="editor-elem" uk-tooltip="title: ' + wfe.elements[el].name + '; delay: 750; offset: 1"></div>';
+        '<div id="' + wfe.elements[el].editorId + '" style="height:' + ((wfe.elements[el].coords().BottomRightY - wfe.elements[el].coords().TopLeftY + 1)) + 'px; width:' + ((wfe.elements[el].coords().BottomRightX - wfe.elements[el].coords().TopLeftX + 1)) + 'px; top:' + (wfe.elements[el].coords().TopLeftY) + 'px; left:' + (wfe.elements[el].coords().TopLeftX) + 'px;" class="editor-elem" uk-tooltip="title: ' + wfe.elements[el].name + '; delay: 750; offset: 1"></div>';
 }
 
 /**
@@ -24,7 +25,7 @@ function makeBlock(el) {
  */
 function makeImg(el) {
     $("editor").innerHTML +=
-        '<div id="' + wfe.elements[el].editorId + '" style="height:' + ($(wfe.elements[el].coords().ImageIndex).height * 3) + 'px; width:' + ($(wfe.elements[el].coords().ImageIndex).width * 3) + 'px; top:' + (wfe.elements[el].coords().Y * 3) + 'px; left:' + (wfe.elements[el].coords().X * 3) + 'px;" class="editor-elem" uk-tooltip="title: ' + wfe.elements[el].name + '; delay: 750; offset: 1"></div>';
+        '<div id="' + wfe.elements[el].editorId + '" style="height:' + ($(wfe.elements[el].coords().ImageIndex).height) + 'px; width:' + ($(wfe.elements[el].coords().ImageIndex).width) + 'px; top:' + (wfe.elements[el].coords().Y) + 'px; left:' + (wfe.elements[el].coords().X) + 'px;" class="editor-elem" uk-tooltip="title: ' + wfe.elements[el].name + '; delay: 750; offset: 1"></div>';
 }
 
 /**
@@ -36,7 +37,7 @@ function makeImg(el) {
  */
 function makeImgStat(el, id) {
     $("editor").innerHTML +=
-        '<div id="' + id + '" style="height:' + ($('ImageIndexOn' in el ? el.ImageIndexOn : el.ImageIndexOff).height * 3) + 'px; width:' + ($('ImageIndexOn' in el ? el.ImageIndexOn : el.ImageIndexOff).width * 3) + 'px; top:' + (el.Coordinates.Y * 3) + 'px; left:' + (el.Coordinates.X * 3) + 'px;" class="editor-elem"></div>';
+        '<div id="' + id + '" style="height:' + ($('ImageIndexOn' in el ? el.ImageIndexOn : el.ImageIndexOff).height) + 'px; width:' + ($('ImageIndexOn' in el ? el.ImageIndexOn : el.ImageIndexOff).width) + 'px; top:' + (el.Coordinates.Y) + 'px; left:' + (el.Coordinates.X) + 'px;" class="editor-elem"></div>';
 }
 
 /**
@@ -59,15 +60,15 @@ function init() {
     $("editor").innerHTML = '';
     if ('bg' in wfe.coords) {
         let bg = $c(wfe.coords.bg.Image.ImageIndex);
-        bg.style.left = wfe.coords.bg.Image.X * 3 + "px";
-        bg.style.top = wfe.coords.bg.Image.Y * 3 + "px";
+        bg.style.left = wfe.coords.bg.Image.X + "px";
+        bg.style.top = wfe.coords.bg.Image.Y + "px";
         bg.style.position = "absolute";
-        bg.height *= 3;
-        bg.width *= 3;
+        bg.height *= 1;
+        bg.width *= 1;
         bg.removeAttribute("id");
         $("editor").appendChild(bg);
-        setTimeout(function() {
-            $("editor").childNodes[0].ondragstart = function() {
+        setTimeout(function () {
+            $("editor").childNodes[0].ondragstart = function () {
                 return false;
             };
         }, 10);
@@ -83,7 +84,7 @@ function init() {
         }
         if ('amPm' in wfe.coords) {
             $("editor").innerHTML +=
-                '<div id="e_time_am" style="height:' + ($(wfe.coords.amPm.ImageIndexAm).height * 3) + 'px; width:' + ($(wfe.coords.amPm.ImageIndexAm).width * 3) + 'px; top:' + (wfe.coords.amPm.Y * 3) + 'px; left:' + (wfe.coords.amPm.X * 3) + 'px;" class="editor-elem"></div>';
+                '<div id="e_time_am" style="height:' + ($(wfe.coords.amPm.ImageIndexAm).height) + 'px; width:' + ($(wfe.coords.amPm.ImageIndexAm).width) + 'px; top:' + (wfe.coords.amPm.Y) + 'px; left:' + (wfe.coords.amPm.X) + 'px;" class="editor-elem"></div>';
             initdragN('timeM');
         }
     }
@@ -118,7 +119,7 @@ function init() {
             let e_battery_linar_initdrag = i => initdrag(('e_battery_linar_' + i), wfe.coords.batteryScale.Segments[i]);
             for (let i = 0; i < wfe.coords.batteryScale.Segments.length; i++) {
                 $("editor").innerHTML +=
-                    '<div id="e_battery_linar_' + i + '" style="height:' + ($(wfe.coords.batteryScale.StartImageIndex + i).height * 3) + 'px; width:' + ($(wfe.coords.batteryScale.StartImageIndex + i).width * 3) + 'px; top:' + (wfe.coords.batteryScale.Segments[i].Y * 3) + 'px; left:' + (wfe.coords.batteryScale.Segments[i].X * 3) + 'px;" class="editor-elem"></div>';
+                    '<div id="e_battery_linar_' + i + '" style="height:' + ($(wfe.coords.batteryScale.StartImageIndex + i).height) + 'px; width:' + ($(wfe.coords.batteryScale.StartImageIndex + i).width) + 'px; top:' + (wfe.coords.batteryScale.Segments[i].Y) + 'px; left:' + (wfe.coords.batteryScale.Segments[i].X) + 'px;" class="editor-elem"></div>';
                 setTimeout(e_battery_linar_initdrag, 10, i);
             }
         }
@@ -145,14 +146,14 @@ function init() {
         if ('weathericon' in wfe.coords)
             if ('CustomIcon' in wfe.coords.weathericon) {
                 $("editor").innerHTML +=
-                    '<div id="e_weather_icon" style="height:' + ($(wfe.coords.weathericon.CustomIcon.ImageIndex).height * 3) + 'px; width:' + ($(wfe.coords.weathericon.CustomIcon.ImageIndex).width * 3) + 'px; top:' + (wfe.coords.weathericon.CustomIcon.Y * 3) + 'px; left:' + (wfe.coords.weathericon.CustomIcon.X * 3) + 'px;" class="editor-elem"></div>';
-                setTimeout(function() {
+                    '<div id="e_weather_icon" style="height:' + ($(wfe.coords.weathericon.CustomIcon.ImageIndex).height) + 'px; width:' + ($(wfe.coords.weathericon.CustomIcon.ImageIndex).width) + 'px; top:' + (wfe.coords.weathericon.CustomIcon.Y) + 'px; left:' + (wfe.coords.weathericon.CustomIcon.X) + 'px;" class="editor-elem"></div>';
+                setTimeout(function () {
                     initdrag('e_weather_icon', wfe.coords.weathericon.CustomIcon);
                 }, 10);
             } else {
                 $("editor").innerHTML +=
-                    '<div id="e_weather_icon" style="height:' + ($("weather").height * 3) + 'px; width:' + ($("weather").width * 3) + 'px; top:' + (wfe.coords.weathericon.Coordinates.Y * 3) + 'px; left:' + (wfe.coords.weathericon.Coordinates.X * 3) + 'px;" class="editor-elem"></div>';
-                setTimeout(function() {
+                    '<div id="e_weather_icon" style="height:' + ($("weather").height) + 'px; width:' + ($("weather").width) + 'px; top:' + (wfe.coords.weathericon.Coordinates.Y) + 'px; left:' + (wfe.coords.weathericon.Coordinates.X) + 'px;" class="editor-elem"></div>';
+                setTimeout(function () {
                     initdrag('e_weather_icon', wfe.coords.weathericon.Coordinates);
                 }, 10);
             }
@@ -179,7 +180,7 @@ function init() {
             let e_steps_linar_initdrag = i => initdrag(('e_steps_linar_' + i), wfe.coords.stepsLinear.Segments[i]);
             for (let i = 0; i < wfe.coords.stepsLinear.Segments.length; i++) {
                 $("editor").innerHTML +=
-                    '<div id="e_steps_linar_' + i + '" style="height:' + ($(wfe.coords.stepsLinear.StartImageIndex + i).height * 3) + 'px; width:' + ($(wfe.coords.stepsLinear.StartImageIndex + i).width * 3) + 'px; top:' + (wfe.coords.stepsLinear.Segments[i].Y * 3) + 'px; left:' + (wfe.coords.stepsLinear.Segments[i].X * 3) + 'px;" class="editor-elem"></div>';
+                    '<div id="e_steps_linar_' + i + '" style="height:' + ($(wfe.coords.stepsLinear.StartImageIndex + i).height) + 'px; width:' + ($(wfe.coords.stepsLinear.StartImageIndex + i).width) + 'px; top:' + (wfe.coords.stepsLinear.Segments[i].Y) + 'px; left:' + (wfe.coords.stepsLinear.Segments[i].X) + 'px;" class="editor-elem"></div>';
                 setTimeout(e_steps_linar_initdrag, 10, i);
             }
         }
@@ -206,7 +207,7 @@ function initdrag(el, elcoords) {
      * @param {Event} e mouse down event
      * @returns {null} null
      */
-    el.onmousedown = function(e) {
+    el.onmousedown = function (e) {
         wfe.coordsHistory.push(JSON.stringify(wfe.coords));
         let ed = getOffsetRect($("editor")),
             curcoords = getCoords(el),
@@ -220,29 +221,29 @@ function initdrag(el, elcoords) {
         function moveAt(e) {
             el.style.left = e.pageX - ed.left - shiftX + 'px';
             el.style.top = e.pageY - ed.top - shiftY + 'px';
-            $("e_coords").innerHTML = "X: " + (styleToNum(el.style.left) - styleToNum(el.style.left) % 3) / 3 + ", Y: " + (styleToNum(el.style.top) - styleToNum(el.style.top) % 3) / 3;
+            $("e_coords").innerHTML = "X: " + (styleToNum(el.style.left) - styleToNum(el.style.left) % 3) + ", Y: " + (styleToNum(el.style.top) - styleToNum(el.style.top) % 3);
         }
 
-        $("editor").onmousemove = function(e) {
+        $("editor").onmousemove = function (e) {
             moveAt(e);
         };
 
-        el.onmouseup = function() {
+        el.onmouseup = function () {
             $("editor").onmousemove = null;
             el.onmouseup = null;
             el.style.zIndex = 'auto';
             let top = styleToNum(el.style.top),
                 left = styleToNum(el.style.left);
-            el.style.top = top > 0 && top < wfe.device.height * 3 ? Math.round(top / 3) * 3 + 'px' : "0px";
-            el.style.left = left > 0 && left < wfe.device.width * 3 ? Math.round(left / 3) * 3 + 'px' : "0px";
+            el.style.top = top > 0 && top < wfe.device.height ? Math.round(top) + 'px' : "0px";
+            el.style.left = left > 0 && left < wfe.device.width ? Math.round(left) + 'px' : "0px";
             if ('X' in elcoords) {
-                elcoords.X = styleToNum(el.style.left) / 3;
-                elcoords.Y = styleToNum(el.style.top) / 3;
+                elcoords.X = styleToNum(el.style.left);
+                elcoords.Y = styleToNum(el.style.top);
             } else {
                 let t1 = elcoords.TopLeftX,
                     t2 = elcoords.TopLeftY;
-                elcoords.TopLeftX = styleToNum(el.style.left) / 3;
-                elcoords.TopLeftY = styleToNum(el.style.top) / 3;
+                elcoords.TopLeftX = styleToNum(el.style.left);
+                elcoords.TopLeftY = styleToNum(el.style.top);
                 elcoords.BottomRightX += elcoords.TopLeftX - t1;
                 elcoords.BottomRightY += elcoords.TopLeftY - t2;
             }
@@ -252,7 +253,7 @@ function initdrag(el, elcoords) {
 
     };
 
-    el.ondragstart = function() {
+    el.ondragstart = function () {
         return false;
     };
 
@@ -269,12 +270,12 @@ function initdrag(el, elcoords) {
 /**
  * Init drag&drop with data from wfe.elements
  * *I dot't give a fuck why timeout is here
- * 
+ *
  * @param {string} el name
  * @returns {null} null
  */
 function initdragN(el) {
-    setTimeout(function() {
+    setTimeout(function () {
         initdrag(wfe.elements[el].editorId,
             wfe.elements[el].coords());
     }, 10);
@@ -396,6 +397,7 @@ function undo() {
         wfe.makeWf();
     }
 }
+
 $('editor-tab').addEventListener('click', init);
 $('fix-coords').addEventListener('click', makejsbetter);
 $('editor-undo').addEventListener('click', undo);

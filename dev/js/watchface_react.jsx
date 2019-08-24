@@ -28,8 +28,10 @@ class ImageElement extends React.Component {
 
     render() {
         return (
-            <img src={this.getImage()} style={{top: this.props.el.Y + 'px',
-                left: this.props.el.X + 'px'}} />
+            <img src={this.getImage()} style={{
+                top: this.props.el.Y + 'px',
+                left: this.props.el.X + 'px'
+            }} />
         );
     }
 }
@@ -64,15 +66,28 @@ class StatusElement extends React.Component {
  */
 class SegmentsElement extends React.Component {
     render() {
-        let el = this.props.el,
-            end = Math.ceil(this.props.value / (this.props.maxValue / (el.Segments.length - 1))),
-            itemsList = [];
-        for (let i = 0; i <= end; i++) {
-            itemsList.push(<img src={$(el.StartImageIndex + i).src} style={{top: el.Segments[i].Y + 'px', left: el.Segments[i].X + 'px'}} />);
+
+        try {
+            let el = this.props.el,
+                end = Math.ceil(this.props.value / (this.props.maxValue / (el.Segments.length - 1))),
+                itemsList = [];
+            for (let i = 0; i <= end; i++) {
+                itemsList.push(<img src={$(el.StartImageIndex + i).src} style={{top: el.Segments[i].Y + 'px', left: el.Segments[i].X + 'px'}} />);
+            }
+            return (
+                itemsList
+            );
+        } catch (error) {
+            console.warn(error);
+            // UIkit.notification("error", {
+            //     timeout: 7500,
+            //     status: 'danger',
+            //     pos: 'top-left'
+            //
+            // });
+            return '';
         }
-        return (
-            itemsList
-        );
+
     }
 }
 
@@ -391,6 +406,36 @@ class AnalogArrow extends React.Component {
     }
 }
 
+/**
+ * Renders image element
+ *
+ * @class ImageElement
+ * @extends {React.Component}
+ */
+class AnalogArrowImageElement extends React.Component {
+    /**
+     * Get src of images, depend on value
+     *
+     * @returns {object} image src
+     * @memberof ImageElement
+     *
+     */
+    getImage() {
+        return $(this.props.el.ImageIndex).src;
+    }
+
+    render() {
+        return (
+            <img src={this.getImage()} style={{
+                transform: 'rotate(' + this.props.value + 'deg)',
+                'transform-origin': '50% 80%',
+                top: (227 - this.props.el.Y) + 'px',
+                left: (227 - this.props.el.X) + 'px'
+            }} />
+        );
+    }
+}
+
 class StepsCircle extends React.Component {
     render() {
         let el = this.props.el;
@@ -468,16 +513,16 @@ class Watchface extends React.Component {
                     <BlockElement el={this.props.coords.batteryText} value={this.props.data.battery} />
                 }
                 {this.props.coords.batteryScale &&
-                    <SegmentsElement el={this.props.coords.batteryScale} value={this.props.data.battery} maxValue={100} />
+                    <StepsCircle el={this.props.coords.batteryScale} value={this.props.data.battery} maxValue={100} device={this.props.device}/>
                 }
                 {this.props.coords.analoghours &&
-                    <AnalogArrow el={this.props.coords.analoghours} value={this.props.data.analog[0]} device={this.props.device}/>
+                    <AnalogArrowImageElement el={this.props.coords.analoghours} value={this.props.data.analog[0]} device={this.props.device}/>
                 }
                 {this.props.coords.analogminutes &&
-                    <AnalogArrow el={this.props.coords.analogminutes} value={this.props.data.analog[1]} device={this.props.device}/>
+                    <AnalogArrowImageElement el={this.props.coords.analogminutes} value={this.props.data.analog[1]} device={this.props.device}/>
                 }
                 {this.props.coords.analogseconds &&
-                    <AnalogArrow el={this.props.coords.analogseconds} value={this.props.data.analog[2]} device={this.props.device}/>
+                    <AnalogArrowImageElement el={this.props.coords.analogseconds} value={this.props.data.analog[2]} device={this.props.device}/>
                 }
                 {this.props.coords.statAlarm &&
                     <StatusElement el={this.props.coords.statAlarm} value={this.props.data.alarm} />

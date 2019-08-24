@@ -5,7 +5,7 @@ import {
 import wfe from './wfe_obj.js';
 import jsonlint from 'jsonlint-mod';
 
-let elements = ['seconds', 'amPm', 'weekDay', 'dateDay', 'dateMonth', 'dateOneLine', 'batteryIcon', 'batteryText', 'batteryScale', 'statAlarm', 'statBt', 'statDnd', 'statLock', 'actCal', 'actSteps', 'actStepsGoal', 'actPulse', 'actDistance', 'weatherOneLine', 'weatherDay', 'weatherNight', 'weatherCurrent', 'stepsLinear', 'stepsGoal', 'weatherAirIcon', 'weatherAirText', 'weatherDayAlt', 'weatherNightAlt'];
+let elements = ['seconds', 'amPm', 'weekDay', 'dateDay', 'dateMonth', 'dateOneLine', 'batteryIcon', 'batteryText', 'batteryScale', 'statAlarm', 'statBt', 'statDnd', 'statLock', 'actCal', 'actSteps', 'actStepsGoal', 'actPulse', 'actDistance', 'weatherOneLine', 'weatherDay', 'weatherNight', 'weatherCurrent', 'stepscircle', 'stepsGoal', 'weatherAirIcon', 'weatherAirText', 'weatherDayAlt', 'weatherNightAlt'];
 
 function toggleButton(element) {
     if (element in wfe.coords)
@@ -79,7 +79,7 @@ let toggleElements = {
     weatherDay: '"Temperature":',
     weatherNight: '"Night":',
     stepsGoal: '"GoalImage":',
-    stepsLinear: '"Linear":',
+    stepscircle: '"Linear":',
     weatherDayAlt: '"DayAlt":',
     weatherNightAlt: '"NightAlt":'
 };
@@ -455,29 +455,15 @@ function toggle(el) {
                 wfe.coords.battery = false;
         } else
             wfe.coords.batteryScale = {
-                StartImageIndex: 200,
-                Segments: [{
-                    X: 55,
-                    Y: 0
-                }, {
-                    X: 65,
-                    Y: 0
-                }, {
-                    X: 75,
-                    Y: 0
-                }, {
-                    X: 85,
-                    Y: 0
-                }, {
-                    X: 95,
-                    Y: 0
-                }, {
-                    X: 105,
-                    Y: 0
-                }, {
-                    X: 115,
-                    Y: 0
-                }]
+                CenterX: 112,
+                CenterY: 306,
+                RadiusX: 51,
+                RadiusY: 51,
+                StartAngle: 0,
+                EndAngle: 360,
+                Width: 4,
+                Color: "0xba0403",
+                Unknown9: 0
             };
         break;
     }
@@ -767,49 +753,24 @@ function toggle(el) {
             };
         break;
     }
-    case 'stepsLinear': {
+    case 'stepscircle': {
         if (!(wfe.coords.stepsprogress))
             wfe.coords.stepsprogress = true;
-        if ('stepsLinear' in wfe.coords) {
-            delete wfe.coords.stepsLinear;
+        if ('stepscircle' in wfe.coords) {
+            delete wfe.coords.stepscircle;
             if (!('stepsLinear' in wfe.coords || 'stepsGoal' in wfe.coords || 'stepscircle' in wfe.coords))
                 wfe.coords.stepsprogress = false;
         } else
-            wfe.coords.stepsLinear = {
-                StartImageIndex: 200,
-                Segments: [{
-                    X: 50,
-                    Y: 160
-                },
-                {
-                    X: 60,
-                    Y: 160
-                },
-                {
-                    X: 70,
-                    Y: 160
-                },
-                {
-                    X: 80,
-                    Y: 160
-                },
-                {
-                    X: 90,
-                    Y: 160
-                },
-                {
-                    X: 100,
-                    Y: 160
-                },
-                {
-                    X: 110,
-                    Y: 160
-                },
-                {
-                    X: 120,
-                    Y: 160
-                }
-                ]
+            wfe.coords.stepscircle = {
+                CenterX: 112,
+                CenterY: 306,
+                RadiusX: 51,
+                RadiusY: 51,
+                StartAngle: 0,
+                EndAngle: 360,
+                Width: 4,
+                Color: "0xba0403",
+                Unknown9: 0
             };
         break;
     }
@@ -908,9 +869,7 @@ function exportjs() {
     checkDef(1);
     checkLimits();
     if (wfe.app.notWebkitBased) {
-        let blob = new Blob([JSON.stringify(wfe.converter.export(wfe.coords), null, 4)], {
-            type: "text/plain;charset=utf-8"
-        });
+        let blob = new Blob([JSON.stringify(wfe.converter.export(wfe.coords), null, 4)], {type: "text/plain;charset=utf-8"});
         saveAs(blob, wfe.data.wfname + '.json');
     } else {
         let a = document.createElement('a');

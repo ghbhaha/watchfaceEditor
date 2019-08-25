@@ -54,7 +54,7 @@ wfe.init = function() {
     } else if (device_list.includes(localStorage.device)) {
         app.change_device(localStorage.device, wfe);
     } else {
-        app.change_device('bip', wfe);
+        app.change_device('gtr', wfe);
     }
     let device = document.getElementsByName('device'),
         device_change = () => {

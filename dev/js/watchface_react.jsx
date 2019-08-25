@@ -425,10 +425,11 @@ class AnalogArrowImageElement extends React.Component {
     }
 
     render() {
+        let height = $(this.props.el.ImageIndex).height;
         return (
             <img src={this.getImage()} style={{
                 transform: 'rotate(' + this.props.value + 'deg)',
-                'transform-origin': '50% 80%',
+                'transform-origin': '50% ' + ((this.props.el.Y / height) * 100) + '%',
                 top: (227 - this.props.el.Y) + 'px',
                 left: (227 - this.props.el.X) + 'px'
             }} />

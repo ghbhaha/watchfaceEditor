@@ -12,6 +12,26 @@ import updateWatchface from "./watchface_react";
  * @param {string} el name
  * @returns {null} null
  */
+function makeCircleBlock(el) {
+    let circle = wfe.elements[el].coords()
+    $("editor").innerHTML +=
+        '<div id="' + wfe.elements[el].editorId + '" style="height:' + ((circle.RadiusX + circle.RadiusY)) + 'px; width:' + ((circle.RadiusX + circle.RadiusY)) + 'px; top:' + (circle.CenterY - circle.RadiusY) + 'px; left:' + (circle.CenterX - circle.RadiusX) + 'px;" class="editor-elem" uk-tooltip="title: ' + wfe.elements[el].name + '; delay: 750; offset: 1"></div>';
+}
+
+function makeCircleAndInitDrag(el) {
+    makeCircleBlock(el);
+    setTimeout(function () {
+        initCircledrag(wfe.elements[el].editorId,
+            wfe.elements[el].coords());
+    }, 10);
+}
+
+/**
+ * Makes block and inserts it (TopLeft and BottomRight) for visual editor
+ *
+ * @param {string} el name
+ * @returns {null} null
+ */
 function makeBlock(el) {
     $("editor").innerHTML +=
         '<div id="' + wfe.elements[el].editorId + '" style="height:' + ((wfe.elements[el].coords().BottomRightY - wfe.elements[el].coords().TopLeftY + 1)) + 'px; width:' + ((wfe.elements[el].coords().BottomRightX - wfe.elements[el].coords().TopLeftX + 1)) + 'px; top:' + (wfe.elements[el].coords().TopLeftY) + 'px; left:' + (wfe.elements[el].coords().TopLeftX) + 'px;" class="editor-elem" uk-tooltip="title: ' + wfe.elements[el].name + '; delay: 750; offset: 1"></div>';
@@ -116,12 +136,7 @@ function init() {
         if ('batteryText' in wfe.coords)
             makeBlockAndInitDrag('batteryText');
         if ('batteryScale' in wfe.coords) {
-            let e_battery_linar_initdrag = i => initdrag(('e_battery_linar_' + i), wfe.coords.batteryScale.Segments[i]);
-            for (let i = 0; i < wfe.coords.batteryScale.Segments.length; i++) {
-                $("editor").innerHTML +=
-                    '<div id="e_battery_linar_' + i + '" style="height:' + ($(wfe.coords.batteryScale.StartImageIndex + i).height) + 'px; width:' + ($(wfe.coords.batteryScale.StartImageIndex + i).width) + 'px; top:' + (wfe.coords.batteryScale.Segments[i].Y) + 'px; left:' + (wfe.coords.batteryScale.Segments[i].X) + 'px;" class="editor-elem"></div>';
-                setTimeout(e_battery_linar_initdrag, 10, i);
-            }
+            makeCircleAndInitDrag("batteryScale");
         }
     }
     if (wfe.coords.status) {
@@ -174,8 +189,11 @@ function init() {
         if ('weatherAirText' in wfe.coords)
             makeBlockAndInitDrag('weatherAirText');
     }
+
     if (wfe.coords.stepsprogress) {
-        // if ('stepscircle' in wfe.coords) {}
+        if ('stepscircle' in wfe.coords) {
+            makeCircleAndInitDrag("stepscircle");
+        }
         if ('stepsLinear' in wfe.coords) {
             let e_steps_linar_initdrag = i => initdrag(('e_steps_linar_' + i), wfe.coords.stepsLinear.Segments[i]);
             for (let i = 0; i < wfe.coords.stepsLinear.Segments.length; i++) {
@@ -190,6 +208,74 @@ function init() {
     if ('Animation' in wfe.coords)
         makeImgAndInitDrag('Animation');
 }
+
+/**
+ * Init drag&drop for element
+ *
+ * @param {number} el id
+ * @param {object} elcoords coordinates object
+ * @returns {null} null
+ */
+function initCircledrag(el, elcoords) {
+    el = $(el);
+
+    /**
+     * Set moving
+     *
+     * @param {Event} e mouse down event
+     * @returns {null} null
+     */
+    el.onmousedown = function (e) {
+        wfe.coordsHistory.push(JSON.stringify(wfe.coords));
+        let ed = getOffsetRect($("editor")),
+            curcoords = getCoords(el),
+            shiftX = e.pageX - curcoords.left,
+            shiftY = e.pageY - curcoords.top;
+        el.style.position = 'absolute';
+        moveAt(e);
+
+        el.style.zIndex = 1000;
+
+        function moveAt(e) {
+            el.style.left = e.pageX - ed.left - shiftX + 'px';
+            el.style.top = e.pageY - ed.top - shiftY + 'px';
+            $("e_coords").innerHTML = "X: " + (styleToNum(el.style.left) - styleToNum(el.style.left) % 3) + ", Y: " + (styleToNum(el.style.top) - styleToNum(el.style.top) % 3);
+        }
+
+        $("editor").onmousemove = function (e) {
+            moveAt(e);
+        };
+
+        el.onmouseup = function () {
+            $("editor").onmousemove = null;
+            el.onmouseup = null;
+            el.style.zIndex = 'auto';
+            let top = styleToNum(el.style.top),
+                left = styleToNum(el.style.left);
+            el.style.top = top > 0 && top < wfe.device.height ? Math.round(top) + 'px' : "0px";
+            el.style.left = left > 0 && left < wfe.device.width ? Math.round(left) + 'px' : "0px";
+            elcoords.CenterX = styleToNum(el.style.left) + elcoords.RadiusX;
+            elcoords.CenterY = styleToNum(el.style.top) + elcoords.RadiusY;
+            updateWatchface();
+            $("e_coords").innerHTML = ('coordinates' in wfe.app.lang ? wfe.app.lang.coordinates : "Coordinates");
+        };
+
+    };
+
+    el.ondragstart = function () {
+        return false;
+    };
+
+    function getCoords(elem) {
+        let box = elem.getBoundingClientRect();
+        return {
+            top: box.top + pageYOffset,
+            left: box.left + pageXOffset
+        };
+    }
+
+}
+
 
 /**
  * Init drag&drop for element

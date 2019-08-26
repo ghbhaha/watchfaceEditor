@@ -166,6 +166,13 @@ wfe.elements = {
             return wfe.coords.batteryText;
         }
     },
+    batteryScale: {
+        name: 'Battery Scale',
+        editorId: 'e_battery_scale',
+        coords: function() {
+            return wfe.coords.batteryScale;
+        }
+    },
     statAlarm: {
         name: 'Alarm',
         editorId: 'e_stat_alarm',
@@ -262,6 +269,13 @@ wfe.elements = {
         editorId: 'e_steps_goal',
         coords: function() {
             return wfe.coords.stepsGoal;
+        }
+    },
+    stepscircle: {
+        name: 'Steps Circle',
+        editorId: 'e_steps_circle',
+        coords: function() {
+            return wfe.coords.stepscircle;
         }
     },
     Animation: {

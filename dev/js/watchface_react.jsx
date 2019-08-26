@@ -385,8 +385,10 @@ class AnalogArrow extends React.Component {
     render() {
         let el = this.props.el;
 
-        let col = el.Color.replace("0x", "#"),
-            d = "M " + el.Shape[0].X + " " + el.Shape[0].Y,
+        let col = el.Color.replace("0x", "#");
+        if (col.length === 10)
+            col = '#' + col.substring(3, 10);
+        let d = "M " + el.Shape[0].X + " " + el.Shape[0].Y,
             iters = el.Shape.length,
             fill = el.OnlyBorder ? "none" : col;
         for (let i = 0; i < iters; i++) {
@@ -429,7 +431,7 @@ class AnalogArrowImageElement extends React.Component {
         return (
             <img src={this.getImage()} style={{
                 transform: 'rotate(' + this.props.value + 'deg)',
-                'transform-origin': '50% ' + ((this.props.el.Y / height) * 100) + '%',
+                transformOrigin: '50% ' + ((this.props.el.Y / height) * 100) + '%',
                 top: (227 - this.props.el.Y) + 'px',
                 left: (227 - this.props.el.X) + 'px'
             }} />
@@ -440,8 +442,10 @@ class AnalogArrowImageElement extends React.Component {
 class StepsCircle extends React.Component {
     render() {
         let el = this.props.el;
-        let col = el.Color.replace("0x", "#"),
-            full = Math.floor(2 * el.RadiusX * Math.PI / 360 * (el.EndAngle - el.StartAngle));
+        let col = el.Color.replace("0x", "#");
+        if (col.length === 10)
+            col = '#' + col.substring(3, 10);
+        let full = Math.floor(2 * el.RadiusX * Math.PI / 360 * (el.EndAngle - el.StartAngle));
         let fill = Math.round(this.props.value / (this.props.maxValue / full));
         if (fill > full) fill = full;
         return (

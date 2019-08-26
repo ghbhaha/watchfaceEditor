@@ -114,8 +114,10 @@ function removeDot(e) {
 }
 
 function drawAnalog(el, value) {
-    let col = el.Color.replace("0x", "#"),
-        d = "M " + el.Shape[0].X + " " + el.Shape[0].Y,
+    let col = el.Color.replace("0x", "#");
+    if (col.length === 10)
+        col = '#' + col.substring(3, 10);
+    let d = "M " + el.Shape[0].X + " " + el.Shape[0].Y,
         iters = el.Shape.length,
         fill = el.OnlyBorder ? "none" : col,
         contextmenu = e => {

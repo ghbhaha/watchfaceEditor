@@ -762,7 +762,7 @@ function toggle(el) {
                 wfe.coords.stepsprogress = false;
         } else
             wfe.coords.stepscircle = {
-                CenterX: 112,
+                CenterX: 341,
                 CenterY: 306,
                 RadiusX: 51,
                 RadiusY: 51,
